@@ -139,12 +139,16 @@ Answer the following questions to fill in the blanks:_
 		
 		http://13.77.214.120:5601/app/kibana
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
 To download the playbook, use 
 		
-		curl https://github.com/jessesmithca/uCSd/blob/a3b7bf5c0b21ef86c5f8cb8661ecc2edb062c19b/Ansible/YML/filebeat-playbook.yml
+		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-playbook.yml
 		
 To download the filebeat-config.yml, use
 		
-		curl https://github.com/jessesmithca/uCSd/blob/a3b7bf5c0b21ef86c5f8cb8661ecc2edb062c19b/Ansible/YML/filebeat-config.yml
+		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-config.yml
+		
+To download the metricbeat.yml, use
+
+		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/metricbeat.yml
