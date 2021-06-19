@@ -139,7 +139,7 @@ In order to verify that the ELK server is running, use a web browser to navigate
 
 To download the `install-elk.yml`, use 
 	
-	curl -L -O placeholder 
+	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/install-elk.yml
 
 To download the playbook, use 
 		
