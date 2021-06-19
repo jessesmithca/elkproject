@@ -83,7 +83,7 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 * Using ansible would allow someone to rapidly complete those repetetive tasks rather than tediously do each step manually.
 * Additionally, ansibile is designed to be human-readable, which would potentially allow for someone to complete jobs they otherwise might struggle to complete.
 
-The playbook implements the following tasks to all machines in the `[elk]` group (should only be 1 machine) from your `hosts` file:
+The playbook implements the following tasks to all machines in the `[elk]` group (should only be 1 machine) from your `/etc/ansible/hosts` file:
 * Installs `docker.io`, `pip3`, and the `Docker Python Module`.
 * Configures the VM to use more memory by setting the `vm.max_map_count` to `262144`.
 * Downloads and installs the Docker container called `sebp/elk:761`
