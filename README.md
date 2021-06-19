@@ -25,7 +25,7 @@ This document contains the following details:
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
 ----
-#### Load Balancing
+### Load Balancing
 
 Load balancing ensures that the application will be highly stable, in addition to restricting access to the network. A load balancer protects against things like DDoS attacks by directing traffic flowing torwards a server to a cloud made up of multiple machines.
 
@@ -49,54 +49,48 @@ Metricbeat monitors system metrics and running services. It records metrics from
 | Web2     | Container| 10.0.0.6   | Linux            |
 | Elk      | Kibana   | 10.1.0.4   | Linux            |
 
+----
+
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-
-		72.207.73.190
+Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from a specific IP address - in my case my home desktop computer.
 
 Machines within the network can only be accessed by users with the appropriate ssh key on the local network.
-- Which machine did you allow to access your ELK VM? 
-	
-		The Docker Container on the Jump Box.
-	
-- What was its IP address?
-	
-		13.88.181.4
-		10.0.0.4
+
+In my configuration, I had configured it so that only the docker container (172.17.0.2) on the Jump Box Provisioner(13.88.181.4 | 10.0.0.4) was able to ssh into the ELK VM. I believe others set it up a different way, instead connecting from the jump box itself rather than the docker container installed on it.
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
 | Jump Box | Yes                 |    72.207.73.190     |
-| Web 1    | No                  |                      |
-| Web 2    | No                  |                      |
-| Elk      | No                  |                      |
+| Web 1    | No                  |    10.0.0.4          |
+| Web 2    | No                  |    10.0.0.4          |
+| Elk      | No                  |    172.17.0.2        |
 
+----
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous for the following reasons:
 
-		To quote ansible directly: "With Ansible, IT admins can begin automating away the drudgery from their daily tasks." Many aspects of IT admin and other adjacent jobs potentially include a great deal of repetetive tasks. 
-		Using ansible would allow someone to rapidly complete those repetetive tasks rather than tediously do each step manually.
-		Additionally, ansibile is designed to be human-readable, which would potentially allow for someone to complete jobs they otherwise might struggle to complete.
+* To quote ansible directly: "With Ansible, IT admins can begin automating away the drudgery from their daily tasks." Many aspects of IT admin and other adjacent jobs potentially include a great deal of repetetive tasks. 
+* Using ansible would allow someone to rapidly complete those repetetive tasks rather than tediously do each step manually.
+* Additionally, ansibile is designed to be human-readable, which would potentially allow for someone to complete jobs they otherwise might struggle to complete.
 
 The playbook implements the following tasks:
-- In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-		
-		1. Add the elk server to the appropriate hosts file
-		2. Create ansible playbook that installs Docker, configures the container by installing and setting up relevant packages like filebeat, metricbeat, etc.
-		3. Run the playbook using the ansible-playbook command to deploy the image to the target machine(s)
-		4. Access kibana using http:// (elk machine IP):5601/app/kibana
+1. Add the elk server to the appropriate hosts file
+2. Create ansible playbook that installs Docker, configures the container by installing and setting up relevant packages like filebeat, metricbeat, etc.
+3. Run the playbook using the ansible-playbook command to deploy the image to the target machine(s)
+4. Access kibana using http:// (elk machine IP):5601/app/kibana
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 ![dockerps](https://raw.githubusercontent.com/jessesmithca/uCSd/main/Ansible/Images/elk_docker_ps.png)
+
+----
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -104,43 +98,39 @@ This ELK server is configured to monitor the following machines:
 		10.0.0.5 (Web1 VM)
 		10.0.0.6 (Web2 VM)
 
-We have installed the following Beats on these machines:
-- Specify which Beats you successfully installed_
-
-		Filebeat and Metricbeat
+We have installed Filebat and Metricbeat on these machines.
 
 These Beats allow us to collect the following information from each machine:
-- In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+* Filebeat monitors system log files (or other files as the user specifies) for log events, forwarding what it collects to Elasticsearch.
+.* I would expect to see things like changes made to log files. For example, a change made to /var/log/auth.log might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
+* Metricbeat collects system metrics.
+.* I would expect to see system metrics like statistics about memory usage/availability, cpu info, OS versions, kernel information, docker container information, etc.
 
-		Filebeat monitors system log files (or other files as the user specifies) for log events, forwarding what it collects to Elasticsearch.
-			I would expect to see things like changes made to log files. For example, a change made to /var/log/auth.log might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
-		Metricbeat collects system metrics.
-			I would expect to see system metrics like statistics about memory usage/availability, cpu info, OS versions, kernel information, docker container information, etc.
+----
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-		- Copy the filebeat-config.yml file to /etc/ansible/files.
-		- Update the filebeat-config.yml file to include the IP of your Elk machine on lines 1105 and 1805
-		- Run the playbook, and navigate to http://(YOUR_ELK_MACHINE_IP):5601/app/kibana to check that the installation worked as expected.
+* Copy the filebeat-config.yml file to /etc/ansible/files.
+* Update the filebeat-config.yml file to include the IP of your Elk machine on lines 1105 and 1805
+* Run the playbook, and navigate to http://(YOUR_ELK_MACHINE_IP):5601/app/kibana to check that the installation worked as expected.
 
-Answer the following questions to fill in the blanks:
-- Which file is the playbook? Where do you copy it?
 
-		The playbook is filebeat-playbook.yml and you should copy it to /etc/ansible/roles
 
-- Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
+* The playbook is filebeat-playbook.yml and you should copy it to /etc/ansible/roles
+* By updating the hosts file located in /etc/ansible/hosts - make sure you have the elk machine listed as its own group. 
+.* There should be a [webservers] group with your Web1 and Web2 machines ip addresses in it, and an [elk] group with your elk machine's ip in it, all followed by ansible_python_interpreter=/usr/bin/python3.
 
-		By updating the hosts file located in /etc/ansible/hosts - make sure you have the elk machine listed as its own group. 
-		There should be a [webservers] group with your Web1 and Web2 machines ip addresses in it, and an [elk] group with your elk machine's ip in it, all followed by ansible_python_interpreter=/usr/bin/python3.
-		The filebeat-playbook.yml says hosts: webservers on the 3rd line, indicating that it is being applied to all machines in the [webservers] group in the hosts file.
+* The filebeat-playbook.yml says hosts: webservers on the 3rd line, indicating that it is being applied to all machines in the [webservers] group in the hosts file.
 
-- Which URL do you navigate to in order to check that the ELK server is running?
+In order to verify that the ELK server is running, use a web browser to navigate to:
 		
 		http://(YOUR_ELK_MACHINE_IP):5601/app/kibana
 
-As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc.
+----
+
+### Commands
 
 To download the playbook, use 
 		
