@@ -126,7 +126,7 @@ SSH into the control node and follow the steps below:
 
 In order to verify that the ELK server is running, use a web browser to navigate to:
 		
-		http://(YOUR_ELK_MACHINE_IP):5601/app/kibana
+	http://(YOUR_ELK_MACHINE_IP):5601/app/kibana
 
 ----
 
@@ -134,12 +134,12 @@ In order to verify that the ELK server is running, use a web browser to navigate
 
 To download the playbook, use 
 		
-		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-playbook.yml
+	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-playbook.yml
 		
 To download the filebeat-config.yml, use
 		
-		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-config.yml
+	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-config.yml
 		
 To download the metricbeat.yml, use
 
-		curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/metricbeat.yml
+	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/metricbeat.yml
