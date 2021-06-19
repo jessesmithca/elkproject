@@ -25,7 +25,7 @@ This document contains the following details:
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
 ----
-#####Load Balancing
+##### Load Balancing
 Load balancing ensures that the application will be highly stable, in addition to restricting access to the network. A load balancer protects against things like DDoS attacks by directing traffic flowing torwards a server to a cloud made up of multiple machines.
 ----
 
