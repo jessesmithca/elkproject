@@ -30,17 +30,17 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 Load balancing ensures that the application will be highly stable, in addition to restricting access to the network. A load balancer protects against things like DDoS attacks by directing traffic flowing torwards a server to a cloud made up of multiple machines.
 
 ----
+### Filebeat and Metricbeat
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the system metrics and system logs.
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the system metrics and system logs - in this case using tools like Filebeat and Metricbeat.
 
-----
 Filebeat watches for "event data" in log files specified by the user. In this case, it is configured to monitor system logs for changes and report them to elasticsearch, which is then formatted by kibana.
  
 Metricbeat monitors system metrics and running services. It records metrics from a variety of services, some examples include Apache, MySQL, and System.
+
 ----
 
-The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
+### Configuration Details
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
