@@ -106,7 +106,7 @@ This ELK server is configured to monitor the following machines:
 	10.0.0.5 (Web1 VM)
 	10.0.0.6 (Web2 VM)
 
-We have installed Filebat and Metricbeat on these machines.
+We have installed Filebeat and Metricbeat on these machines.
 
 These Beats allow us to collect the following information from each machine:
 * Filebeat monitors system log files (or other files as the user specifies) for log events, forwarding what it collects to Elasticsearch.
