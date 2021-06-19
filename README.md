@@ -141,14 +141,14 @@ To download the `install-elk.yml`, use
 	
 	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/install-elk.yml
 
-To download the playbook, use 
+To download the `filebeat-playbook.yml`, use 
 		
 	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-playbook.yml
 		
-To download the filebeat-config.yml, use
+To download the `filebeat-config.yml`, use
 		
 	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/filebeat-config.yml
 		
-To download the metricbeat.yml, use
+To download the `metricbeat.yml`, use
 
 	curl -L -O https://github.com/jessesmithca/uCSd/blob/main/Ansible/YML/metricbeat.yml
