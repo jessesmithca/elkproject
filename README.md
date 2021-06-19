@@ -80,11 +80,15 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 * Using ansible would allow someone to rapidly complete those repetetive tasks rather than tediously do each step manually.
 * Additionally, ansibile is designed to be human-readable, which would potentially allow for someone to complete jobs they otherwise might struggle to complete.
 
-The playbook implements the following tasks:
-1. Add the elk server to the appropriate hosts file
-2. Create ansible playbook that installs Docker, configures the container by installing and setting up relevant packages like filebeat, metricbeat, etc.
-3. Run the playbook using the ansible-playbook command to deploy the image to the target machine(s)
-4. Access kibana using http:// (elk machine IP):5601/app/kibana
+The playbook implements the following tasks to all machines in the `[elk]` group (Web1 and Web2 VMs) from your hosts file:
+* Installs `docker.io`, `pip3`, and the `Docker Python Module`.
+* Configures the VM to use more memory by setting the `vm.max_map_count` to `262144`.
+* Downloads and installs the Docker container called `sebp/elk:761`
+  * Configures this Docker container to start with the following port mappings:
+    * `5601:5601`
+    * `9200:9200`
+    * `5044:5044`
+ 
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -102,7 +106,7 @@ We have installed Filebat and Metricbeat on these machines.
 
 These Beats allow us to collect the following information from each machine:
 * Filebeat monitors system log files (or other files as the user specifies) for log events, forwarding what it collects to Elasticsearch.
-  * I would expect to see things like changes made to log files. For example, a change made to /var/log/auth.log might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
+  * I would expect to see things like changes made to log files. For example, a change made to `/var/log/auth.log` might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
 * Metricbeat collects system metrics.
   * I would expect to see system metrics like statistics about memory usage/availability, cpu info, OS versions, kernel information, docker container information, etc.
 
@@ -112,17 +116,17 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-* Copy the filebeat-config.yml file to /etc/ansible/files.
-* Update the filebeat-config.yml file to include the IP of your Elk machine on lines 1105 and 1805
-* Run the playbook, and navigate to http://(YOUR_ELK_MACHINE_IP):5601/app/kibana to check that the installation worked as expected.
+* Copy the `filebeat-config.yml` file to `/etc/ansible/files`.
+* Update the `filebeat-config.yml` file to include the IP of your Elk machine on lines 1105 and 1805
+* Run the playbook, and navigate to `http://(YOUR_ELK_MACHINE_IP):5601/app/kibana` to check that the installation worked as expected.
 
 
 
-* The playbook is filebeat-playbook.yml and you should copy it to /etc/ansible/roles
-* By updating the hosts file located in /etc/ansible/hosts - make sure you have the elk machine listed as its own group. 
-  * There should be a [webservers] group with your Web1 and Web2 machines ip addresses in it, and an [elk] group with your elk machine's ip in it, all followed by ansible_python_interpreter=/usr/bin/python3.
+* The playbook is `filebeat-playbook.yml` and you should copy it to `/etc/ansible/roles`
+* By updating the `hosts` file located in `/etc/ansible/hosts` - make sure you have the elk machine listed in its own group titled `elk`. 
+  * There should be a `[webservers]` group with your Web1 and Web2 machines ip addresses in it, and an `[elk]` group with your elk machine's ip address in it, all followed by ansible_python_interpreter=/usr/bin/python3.
 
-* The filebeat-playbook.yml says hosts: webservers on the 3rd line, indicating that it is being applied to all machines in the [webservers] group in the hosts file.
+* The `filebeat-playbook.yml` says `hosts: webservers` on the 3rd line, indicating that it is being applied to all machines in the `[webservers]` group in the hosts file.
 
 In order to verify that the ELK server is running, use a web browser to navigate to:
 		
