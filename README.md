@@ -59,7 +59,7 @@ Only the Jump Box machine can accept connections from the Internet. Access to th
 
 Machines within the network can only be accessed by users with the appropriate ssh key on the local network.
 
-In my configuration, I had configured it so that only the docker container (172.17.0.2) on the Jump Box Provisioner(13.88.181.4 | 10.0.0.4) was able to ssh into the ELK VM. I believe others set it up a different way, instead connecting from the jump box itself rather than the docker container installed on it.
+**In my configuration, I had configured it so that only the docker container (172.17.0.2) on the Jump Box Provisioner(13.88.181.4 | 10.0.0.4) was able to ssh into the ELK VM.** I believe others set it up a different way, instead connecting from the jump box itself rather than the docker container installed on it.
 
 A summary of the access policies in place can be found in the table below.
 
