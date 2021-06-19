@@ -12,7 +12,7 @@ These files have been tested and used to generate a live ELK deployment on Azure
 ![filebeatplaybook](https://raw.githubusercontent.com/jessesmithca/uCSd/main/Ansible/Images/filebeat_playbook_yml.png)
 
 This document contains the following details:
-- Description of the Topologu
+- Description of the Topology
 - Access Policies
 - ELK Configuration
   - Beats in Use
@@ -59,7 +59,7 @@ Only the Jump Box machine can accept connections from the Internet. Access to th
 
 Machines within the network can only be accessed by users with the appropriate ssh key on the local network.
 
-**In my configuration, I had configured it so that only the docker container (172.17.0.2) on the Jump Box Provisioner(13.88.181.4 | 10.0.0.4) was able to ssh into the ELK VM.** I believe others set it up a different way, instead connecting from the jump box itself rather than the docker container installed on it.
+**In my case, I had configured it so that only the docker container (172.17.0.2) on the Jump Box Provisioner (13.88.181.4 | 10.0.0.4) was able to ssh into the ELK VM.** I believe others set it up a different way, instead connecting from the jump box itself rather than the docker container installed on it.
 
 A summary of the access policies in place can be found in the table below.
 
@@ -80,7 +80,7 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 * Using ansible would allow someone to rapidly complete those repetetive tasks rather than tediously do each step manually.
 * Additionally, ansibile is designed to be human-readable, which would potentially allow for someone to complete jobs they otherwise might struggle to complete.
 
-The playbook implements the following tasks to all machines in the `[elk]` group (Web1 and Web2 VMs) from your hosts file:
+The playbook implements the following tasks to all machines in the `[elk]` group (should only be 1 machine) from your `hosts` file:
 * Installs `docker.io`, `pip3`, and the `Docker Python Module`.
 * Configures the VM to use more memory by setting the `vm.max_map_count` to `262144`.
 * Downloads and installs the Docker container called `sebp/elk:761`
@@ -88,7 +88,8 @@ The playbook implements the following tasks to all machines in the `[elk]` group
     * `5601:5601`
     * `9200:9200`
     * `5044:5044`
- 
+* Starts the Container 
+* Enables the `docker` service on boot
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -135,6 +136,10 @@ In order to verify that the ELK server is running, use a web browser to navigate
 ----
 
 ### Bonus - Commands
+
+To download the `install-elk.yml`, use 
+	
+	curl -L -O placeholder 
 
 To download the playbook, use 
 		
