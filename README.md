@@ -102,9 +102,9 @@ We have installed Filebat and Metricbeat on these machines.
 
 These Beats allow us to collect the following information from each machine:
 * Filebeat monitors system log files (or other files as the user specifies) for log events, forwarding what it collects to Elasticsearch.
-.* I would expect to see things like changes made to log files. For example, a change made to /var/log/auth.log might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
+   * I would expect to see things like changes made to log files. For example, a change made to /var/log/auth.log might include an ssh authentication failure as well as other useful data associated with the failed authentication, like the IP address, geo location, city, etc.
 * Metricbeat collects system metrics.
-.* I would expect to see system metrics like statistics about memory usage/availability, cpu info, OS versions, kernel information, docker container information, etc.
+   * I would expect to see system metrics like statistics about memory usage/availability, cpu info, OS versions, kernel information, docker container information, etc.
 
 ----
 
@@ -120,7 +120,7 @@ SSH into the control node and follow the steps below:
 
 * The playbook is filebeat-playbook.yml and you should copy it to /etc/ansible/roles
 * By updating the hosts file located in /etc/ansible/hosts - make sure you have the elk machine listed as its own group. 
-.* There should be a [webservers] group with your Web1 and Web2 machines ip addresses in it, and an [elk] group with your elk machine's ip in it, all followed by ansible_python_interpreter=/usr/bin/python3.
+   * There should be a [webservers] group with your Web1 and Web2 machines ip addresses in it, and an [elk] group with your elk machine's ip in it, all followed by ansible_python_interpreter=/usr/bin/python3.
 
 * The filebeat-playbook.yml says hosts: webservers on the 3rd line, indicating that it is being applied to all machines in the [webservers] group in the hosts file.
 
